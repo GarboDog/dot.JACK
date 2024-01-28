@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Comic Title</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #comic-container {
+            max-width: 800px;
+            margin: auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+        }
+        #navigation {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="comic-container">
+    <img id="comic-image" src="https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png" alt="Comic Page 1">
+</div>
+
+<div id="navigation">
+    <button onclick="prevPage()">Previous Page</button>
+    <button onclick="nextPage()">Next Page</button>
+</div>
+
+<script>
+    // Array to store the paths of your comic pages
+    var comicPages = [
+        "path/to/your/first/comic/page.jpg",
+        "path/to/your/second/comic/page.jpg",
+        // Add more pages as needed
+    ];
+
+    // Index to keep track of the current page
+    var currentPageIndex = 0;
+
+    function prevPage() {
+        if (currentPageIndex > 0) {
+            currentPageIndex--;
+            updateComic();
+        }
+    }
+
+    function nextPage() {
+        if (currentPageIndex < comicPages.length - 1) {
+            currentPageIndex++;
+            updateComic();
+        }
+    }
+
+    function updateComic() {
+        var comicImage = document.getElementById("comic-image");
+        comicImage.src = comicPages[currentPageIndex];
+    }
+</script>
+
+</body>
+</html>
