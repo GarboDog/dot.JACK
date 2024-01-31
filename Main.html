@@ -145,89 +145,96 @@
 </div>
 
 <script>
-    var comicPages = [
-        "https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1201202234910834698/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1201209137439191132/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1201259643549265980/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1201603621897388043/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1201642211457126521/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1202267525484650587/image.png"
-    ];
+var comicPages = [
+    "https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png",
+    "https://media.discordapp.net/attachments/1201180195655258202/1201202234910834698/image.png",
+    "https://media.discordapp.net/attachments/1201180195655258202/1201209137439191132/image.png",
+    "https://media.discordapp.net/attachments/1201180195655258202/1201259643549265980/image.png",
+    "https://media.discordapp.net/attachments/1201180195655258202/1201603621897388043/image.png",
+    "https://media.discordapp.net/attachments/1201180195655258202/1201642211457126521/image.png",
+    "https://media.discordapp.net/attachments/1201180195655258202/1202267525484650587/image.png"
+];
 
-    var currentPageIndex = 0;
+var currentPageIndex = 0;
 
-    function prevPage() {
-        if (currentPageIndex > 0) {
-            currentPageIndex--;
-            updateComic();
-        }
-    }
-
-    function nextPage() {
-        if (currentPageIndex < comicPages.length - 1) {
-            currentPageIndex++;
-            updateComic();
-        }
-    }
-
-    function lastPage() {
-        currentPageIndex = comicPages.length - 1;
+function prevPage() {
+    if (currentPageIndex > 0) {
+        currentPageIndex--;
         updateComic();
     }
+}
 
-    function jumpToPage() {
-        var pageInput = document.getElementById("pageInput").value;
-        if (pageInput >= 1 && pageInput <= comicPages.length) {
-            currentPageIndex = pageInput - 1;
-            updateComic();
-        } else {
-            alert("Invalid page number!");
-        }
+function nextPage() {
+    if (currentPageIndex < comicPages.length - 1) {
+        currentPageIndex++;
+        updateComic();
     }
+}
 
-    function updateComic() {
-        var comicImage = document.getElementById("ogImage");
-        comicImage.src = comicPages[currentPageIndex];
-        var pageNumberElement = document.getElementById("page-number");
-        pageNumberElement.innerText = "Page " + (currentPageIndex + 1);
-    }
-
-    function shareComic() {
-        const currentImageUrl = currentPageIndex + 1;
-        const shareableLink = `https://garbodog.github.io/dotJACK/Main.html?pg=${currentImageUrl}`;
-
-        navigator.clipboard.writeText(shareableLink)
-            .then(() => {
-                alert("Link copied to clipboard! :>");
-            })
-            .catch((error) => {
-                alert('Sorry, there was an error copying link :<');
-            })
-    }
-
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    // Update the 'ogImage' in the JavaScript code
-    function updateOgImage() {
-        var pgParam = getParameterByName('pg');
-        if (pgParam !== null && pgParam >= 1 && pgParam <= comicPages.length) {
-            var ogImage = document.getElementById("ogImage");
-            ogImage.src = comicPages[pgParam - 1];
-        }
-    }
-
-
+function lastPage() {
+    currentPageIndex = comicPages.length - 1;
     updateComic();
-    updateOgImage();
+}
+
+function jumpToPage() {
+    var pageInput = document.getElementById("pageInput").value;
+    if (pageInput >= 1 && pageInput <= comicPages.length) {
+        currentPageIndex = pageInput - 1;
+        updateComic();
+    } else {
+        alert("Invalid page number!");
+    }
+}
+
+function updateComic() {
+    var comicImage = document.getElementById("ogImage");
+    comicImage.src = comicPages[currentPageIndex];
+    var pageNumberElement = document.getElementById("page-number");
+    pageNumberElement.innerText = "Page " + (currentPageIndex + 1);
+
+    // Update button states
+    var prevButton = document.getElementById("prevButton");
+    var nextButton = document.getElementById("nextButton");
+
+    prevButton.disabled = currentPageIndex === 0;
+    nextButton.disabled = currentPageIndex === comicPages.length - 1;
+}
+
+function shareComic() {
+    const currentImageUrl = currentPageIndex + 1;
+    const shareableLink = `https://garbodog.github.io/dotJACK/Main.html?pg=${currentImageUrl}`;
+
+    navigator.clipboard.writeText(shareableLink)
+        .then(() => {
+            alert("Link copied to clipboard! :>");
+        })
+        .catch((error) => {
+            alert('Sorry, there was an error copying link :<');
+        })
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+// Update the 'ogImage' in the JavaScript code
+function updateOgImage() {
+    var pgParam = getParameterByName('pg');
+    if (pgParam !== null && pgParam >= 1 && pgParam <= comicPages.length) {
+        var ogImage = document.getElementById("ogImage");
+        ogImage.src = comicPages[pgParam - 1];
+        currentPageIndex = pgParam - 1;
+        updateComic();
+    }
+}
+
+updateOgImage();
 </script>
 
 </body>
