@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:description" content="dot.JACK Comics 🐭">
-    <meta property="og:image" content="https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png" id="ogImage">
     <meta property="og:url" content="https://garbodog.github.io/dotJACK/Main.html">
     <link rel="icon" href="https://media.discordapp.net/attachments/1201180195655258202/1201211929650266183/logo.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;700&display=swap">
@@ -103,6 +103,7 @@
             border: none;
             cursor: pointer;
         }
+
     </style>
 </head>
 <body>
@@ -139,8 +140,11 @@
     </button>
 </div>
 
+<div id="button">
+    <button onclick="shareComic()">Share Page!</button>
+</div>
+
 <script>
-    // Array to store the paths of your comic pages
     var comicPages = [
         "https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1201202234910834698/image.png",
@@ -149,10 +153,8 @@
         "https://media.discordapp.net/attachments/1201180195655258202/1201603621897388043/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1201642211457126521/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1202267525484650587/image.png"
-        // Add more pages as needed
     ];
 
-    // Index to keep track of the current page
     var currentPageIndex = 0;
 
     function prevPage() {
@@ -190,6 +192,40 @@
         var pageNumberElement = document.getElementById("page-number");
         pageNumberElement.innerText = "Page " + (currentPageIndex + 1);
     }
+
+    function shareComic() {
+        const currentImageUrl = currentPageIndex + 1;
+        const shareableLink = `https://garbodog.github.io/dotJACK/Main.html?pg=${currentImageUrl}`;
+
+        navigator.clipboard.writeText(shareableLink)
+            .then(() => {
+                alert("Link copied to clipboard! :>");
+            })
+            .catch((error) => {
+                alert('Sorry, there was an error copying link :<');
+            })
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function updateOgImage() {
+        var pgParam = getParameterByName('pg');
+        if (pgParam !== null && pgParam >= 1 && pgParam <= comicPages.length) {
+            var ogImage = document.getElementById("ogImage");
+            ogImage.content = comicPages[pgParam - 1];
+        }
+    }
+
+    updateComic();
+    updateOgImage();
 </script>
 
 </body>
