@@ -97,11 +97,27 @@
 
         #jump-button:hover {
             background-color: transparent; /* No hover effect */
+            filter: brightness(.8);
         }
         .navigation-button {
             background: none;
             border: none;
             cursor: pointer;
+        }
+        .navigation-button:hover{
+            filter: brightness(.8);
+        }
+        #shareButton {
+            border: none; /* Remove border */
+            background: none; /* Transparent background */
+            cursor: pointer;
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
+            width: 40px; /* Set width of the image */
+            height: auto;
+        }
+        #shareButton:hover {
+            filter: brightness(.8);
         }
 
     </style>
@@ -134,107 +150,121 @@
 </div>
 <div id="jump-to-page">
     <label for="pageInput">Jump to Page:</label>
-    <input type="number" id="pageInput" min="1" max="7"> <!-- Adjust max value based on the number of pages -->
+    <input type="number" id="pageInput" min="1" max="8"> <!-- Adjust max value based on the number of pages -->
     <button id="jump-button" onclick="jumpToPage()">
         <img src="https://media.discordapp.net/attachments/1201180195655258202/1201248308623056956/check_mark.png" alt="Go">
     </button>
 </div>
 
-<div id="button">
-    <button onclick="shareComic()">Share Page!</button>
+<p></p>
+
+<div>
+    <button id="shareButton" onclick="shareComic()"><img src="https://media.discordapp.net/attachments/1201180195655258202/1202396767455416461/Share_Button.png"></button>
+    
 </div>
 
 <script>
-var comicPages = [
-    "https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png",
-    "https://media.discordapp.net/attachments/1201180195655258202/1201202234910834698/image.png",
-    "https://media.discordapp.net/attachments/1201180195655258202/1201209137439191132/image.png",
-    "https://media.discordapp.net/attachments/1201180195655258202/1201259643549265980/image.png",
-    "https://media.discordapp.net/attachments/1201180195655258202/1201603621897388043/image.png",
-    "https://media.discordapp.net/attachments/1201180195655258202/1201642211457126521/image.png",
-    "https://media.discordapp.net/attachments/1201180195655258202/1202267525484650587/image.png"
-];
+    var comicPages = [
+        "https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1201202234910834698/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1201209137439191132/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1201259643549265980/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1201603621897388043/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1201642211457126521/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1202267525484650587/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1202396721485848746/image.png"
+    ];
 
-var currentPageIndex = 0;
+    var currentPageIndex = 0;
 
-function prevPage() {
-    if (currentPageIndex > 0) {
-        currentPageIndex--;
-        updateComic();
+    function prevPage() {
+        if (currentPageIndex > 0) {
+            currentPageIndex--;
+            updateComic();
+        }
     }
-}
 
-function nextPage() {
-    if (currentPageIndex < comicPages.length - 1) {
-        currentPageIndex++;
-        updateComic();
+    function nextPage() {
+        if (currentPageIndex < comicPages.length - 1) {
+            currentPageIndex++;
+            updateComic();
+        }
     }
-}
 
-function lastPage() {
-    currentPageIndex = comicPages.length - 1;
-    updateComic();
-}
-
-function jumpToPage() {
-    var pageInput = document.getElementById("pageInput").value;
-    if (pageInput >= 1 && pageInput <= comicPages.length) {
-        currentPageIndex = pageInput - 1;
+    function lastPage() {
+        currentPageIndex = comicPages.length - 1;
         updateComic();
-    } else {
-        alert("Invalid page number!");
+        updateJumpMax(); // Call the function to update the max attribute
     }
-}
 
-function updateComic() {
-    var comicImage = document.getElementById("ogImage");
-    comicImage.src = comicPages[currentPageIndex];
-    var pageNumberElement = document.getElementById("page-number");
-    pageNumberElement.innerText = "Page " + (currentPageIndex + 1);
-
-    // Update button states
-    var prevButton = document.getElementById("prevButton");
-    var nextButton = document.getElementById("nextButton");
-
-    prevButton.disabled = currentPageIndex === 0;
-    nextButton.disabled = currentPageIndex === comicPages.length - 1;
-}
-
-function shareComic() {
-    const currentImageUrl = currentPageIndex + 1;
-    const shareableLink = `https://garbodog.github.io/dotJACK/Main.html?pg=${currentImageUrl}`;
-
-    navigator.clipboard.writeText(shareableLink)
-        .then(() => {
-            alert("Link copied to clipboard! :>");
-        })
-        .catch((error) => {
-            alert('Sorry, there was an error copying link :<');
-        })
-}
-
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-// Update the 'ogImage' in the JavaScript code
-function updateOgImage() {
-    var pgParam = getParameterByName('pg');
-    if (pgParam !== null && pgParam >= 1 && pgParam <= comicPages.length) {
-        var ogImage = document.getElementById("ogImage");
-        ogImage.src = comicPages[pgParam - 1];
-        currentPageIndex = pgParam - 1;
-        updateComic();
+    function updateJumpMax() {
+        var pageInput = document.getElementById("pageInput");
+        pageInput.max = comicPages.length; // Set the max attribute dynamically
     }
-}
 
-updateOgImage();
+    function jumpToPage() {
+        var pageInput = document.getElementById("pageInput").value;
+        if (pageInput >= 1 && pageInput <= comicPages.length) {
+            currentPageIndex = pageInput - 1;
+            updateComic();
+        } else {
+            alert("Invalid page number!");
+        }
+    }
+
+    function updateComic() {
+        var comicImage = document.getElementById("ogImage");
+        comicImage.src = comicPages[currentPageIndex];
+        var pageNumberElement = document.getElementById("page-number");
+        pageNumberElement.innerText = "Page " + (currentPageIndex + 1);
+
+        // Update button states
+        var prevButton = document.getElementById("prevButton");
+        var nextButton = document.getElementById("nextButton");
+
+        prevButton.disabled = currentPageIndex === 0;
+        nextButton.disabled = currentPageIndex === comicPages.length - 1;
+
+        // Hide/show buttons based on the page index
+        prevButton.style.display = currentPageIndex === 0 ? "none" : "block";
+        nextButton.style.display = currentPageIndex === comicPages.length - 1 ? "none" : "block";
+    }
+
+    function shareComic() {
+        const currentImageUrl = currentPageIndex + 1;
+        const shareableLink = `https://garbodog.github.io/dotJACK/Main.html?pg=${currentImageUrl}`;
+
+        navigator.clipboard.writeText(shareableLink)
+            .then(() => {
+                alert("Link copied to clipboard! :>");
+            })
+            .catch((error) => {
+                alert('Sorry, there was an error copying link :<');
+            })
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Update the 'ogImage' in the JavaScript code
+    function updateOgImage() {
+        var pgParam = getParameterByName('pg');
+        if (pgParam !== null && pgParam >= 1 && pgParam <= comicPages.length) {
+            currentPageIndex = pgParam - 1;
+            var ogImage = document.getElementById("ogImage");
+            ogImage.src = comicPages[currentPageIndex];
+            updateComic();  // Move this line here
+        }
+    }
+
+    updateOgImage();
 </script>
 
 </body>
