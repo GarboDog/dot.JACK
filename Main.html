@@ -9,12 +9,14 @@
     <link rel="icon" href="https://media.discordapp.net/attachments/1201180195655258202/1201211929650266183/logo.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;700&display=swap">
     <title>dot.JACK</title>
+
     <style>
         body {
             text-align: center;
             background-color: #f0f0f0;
-            font-family: 'Shantell Sans', sans-serif; /* Use Shantell Sans font */
+            font-family: 'Shantell Sans', sans-serif;
         }
+
         #navbar {
             background-color: #ffffff;
             padding: 10px;
@@ -23,21 +25,25 @@
             flex-direction: column;
             align-items: center;
         }
+
         #logo-container {
-            margin: 0px 0px -20px 0px; /* Updated margin for equal spacing */
+            margin: 0px 0px -20px 0px;
         }
+
         img {
             max-width: 100%;
             height: auto;
             display: block;
             margin: auto;
         }
+
         #site-title {
             font-size: 28px;
             font-weight: bold;
-            margin: 10px 0; /* Add margin to separate title and links */
-            font-family: 'Shantell Sans', sans-serif; /* Use Shantell Sans font */
+            margin: 10px 0;
+            font-family: 'Shantell Sans', sans-serif;
         }
+
         #navbar-links {
             text-decoration: none;
             color: #000;
@@ -45,81 +51,112 @@
             display: flex;
             gap: 20px;
         }
+
         #navbar-links a {
             text-decoration: none;
             color: #000;
             font-weight: bold;
             position: relative;
         }
+
         #navbar-links a:hover::after {
             content: "";
             position: absolute;
             width: 100%;
             height: 2px;
-            background-color: #000; /* Underline color on hover */
+            background-color: #000;
             bottom: -1px;
             left: 0;
         }
+
         #comic-container {
             max-width: 800px;
             margin: auto;
         }
+
         #page-number {
             margin-top: 10px;
             font-size: 18px;
         }
+
         #jump-to-page {
             margin-top: 10px;
         }
+
         #pageInput {
             border: none;
-            border-bottom: 1px solid #000; /* Underline color */
+            border-bottom: 1px solid #000;
             outline: none;
-            background: transparent; /* Transparent background */
+            background: transparent;
             width: 50px;
-            padding: 2px; /* Adjust padding for better appearance */
-            margin-right: 5px; /* Adjust margin for better appearance */
-            font-family: 'Shantell Sans', sans-serif; /* Use Shantell Sans font */
+            padding: 2px;
+            margin-right: 5px;
+            font-family: 'Shantell Sans', sans-serif;
         }
+
         #jump-button {
-            border: none; /* Remove border */
-            background: none; /* Transparent background */
+            border: none;
+            background: none;
             cursor: pointer;
-            padding: 0; /* Remove padding */
-            margin: 0; /* Remove margin */
+            padding: 0;
+            margin: 0;
         }
 
         #jump-button img {
-            width: 16px; /* Set width of the image */
+            width: 16px;
             height: auto;
-            margin: 0px 0px -5px 0px; /* Updated margin for equal spacing */
+            margin: 0px 0px -5px 0px;
         }
 
         #jump-button:hover {
-            background-color: transparent; /* No hover effect */
+            background-color: transparent;
             filter: brightness(.8);
         }
+
         .navigation-button {
             background: none;
             border: none;
             cursor: pointer;
         }
+
         .navigation-button:hover{
             filter: brightness(.8);
         }
+
         #shareButton {
-            border: none; /* Remove border */
-            background: none; /* Transparent background */
+            border: none;
+            background: none;
             cursor: pointer;
-            padding: 0; /* Remove padding */
-            margin: 0; /* Remove margin */
-            width: 40px; /* Set width of the image */
+            padding: 0;
+            margin: 0;
+            width: 40px;
             height: auto;
         }
+
         #shareButton:hover {
             filter: brightness(.8);
         }
 
+        #comic-description {
+            font-style: italic;
+            font-size: 16px;
+            color: #000000;
+            margin-top: 10px;
+            margin-bottom: -2px;
+            border-bottom: 2px solid #7c7c7c;
+            padding-bottom: 10px;
+        }
+
+        #comic-description a {
+            color: #0066cc; /* Link color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Optionally, make the link bold */
+        }
+
+        #comic-description a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+       
     </style>
 </head>
 <body>
@@ -134,8 +171,10 @@
 </div>
 
 <p></p>
+
 <div id="comic-container">
     <img id="ogImage" src="https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png" alt="Comic Page 1">
+    <p id="comic-description" class="comic-description">Always drew on paper only, our friend gave me inspiration on drawing in MS Paint and Lily mentioned I should try making a comic like her. I dont know how though ^^;</p>
 </div>
 
 <div id="page-number">Page 1</div>
@@ -148,9 +187,11 @@
         <img src="https://media.discordapp.net/attachments/1201180195655258202/1201227184371683368/Right_Arrow.png" alt="Next Page" style="width: 30px; height: auto;">
     </button>
 </div>
+
+<!-- Dear Jack (or helper), you'll need to update the "Max" value to the number of comics you have -PJ // You got this! haha! -Sam-->
 <div id="jump-to-page">
     <label for="pageInput">Jump to Page:</label>
-    <input type="number" id="pageInput" min="1" max="12"> <!-- Adjust max value based on the number of pages -->
+    <input type="number" id="pageInput" min="1" max="12"> 
     <button id="jump-button" onclick="jumpToPage()">
         <img src="https://media.discordapp.net/attachments/1201180195655258202/1201248308623056956/check_mark.png" alt="Go">
     </button>
@@ -160,10 +201,10 @@
 
 <div>
     <button id="shareButton" onclick="shareComic()"><img src="https://media.discordapp.net/attachments/1201180195655258202/1202396767455416461/Share_Button.png"></button>
-    
 </div>
 
 <script>
+// Dear Jack (or helper), put the link to the comic page here in the "comicPages" variable :> -PJ // It looks good -Lily // compliments to the bean! haha -Sam
     var comicPages = [
         "https://media.discordapp.net/attachments/1201180195655258202/1201180426019016734/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1201202234910834698/image.png",
@@ -177,6 +218,22 @@
         "https://media.discordapp.net/attachments/1201180195655258202/1203188373032804483/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1203425804567183401/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1203527745213038612/image.png"
+    ];
+
+// Dear Jack (or helper), you can add descriptions to your comics here in the "comicDescriptions" variable :> -PJ // Good job <3 -Lily
+    var comicDescriptions = [
+        "Always drew on paper only, our friend gave me inspiration on drawing in MS Paint and Lily mentioned I should try making a comic like her. I dont know how though ^^;",
+        "Thank you Lily and PJ for that but, no thank you. I like MS Paint.",
+        "I'm trying to learn ASL slowly to be more comfortable talking like everyone else. :>",
+        "PJ, Lily, and 7 have all been re-learning HTML and PJ helped with mine. Though all he does is watch <a href='https://www.youtube.com/watch?v=LJWsqaEiUao' target = _blank> bug interviews/documentaries on YouTube</a> all the time.",
+        "I.. accidently fronted. at work... alone.. sometimes I work.. but never alone :'<",
+        "Lily helped.. and got me. chocolate milk... to recover :'>",
+        "in our headspace is a house, a home we made... its on a hill with a town. Are all the people in there like me?",
+        "Hehe, burger :> I didn't even realize that we ate burgers 4 days in a row... and we were also craving burgers on Friday too! x>",
+        "Over heard someone whispering about our book... I was playing Minecraft behind it :'>",
+        "Our migraine got really bad, Kuro offered to take over so I can rest. Thank you Kuro <3",
+        "I never saved any of my drawings. They're Temporary and that's ok. :>",
+        "Sam and I made bread today!! It's very yummy and we use it for sandwiches."
     ];
 
     var currentPageIndex = 0;
@@ -198,12 +255,12 @@
     function lastPage() {
         currentPageIndex = comicPages.length - 1;
         updateComic();
-        updateJumpMax(); // Call the function to update the max attribute
+        updateJumpMax();
     }
 
     function updateJumpMax() {
         var pageInput = document.getElementById("pageInput");
-        pageInput.max = comicPages.length; // Set the max attribute dynamically
+        pageInput.max = comicPages.length;
     }
 
     function jumpToPage() {
@@ -219,17 +276,19 @@
     function updateComic() {
         var comicImage = document.getElementById("ogImage");
         comicImage.src = comicPages[currentPageIndex];
+
+        var comicDescription = document.getElementById("comic-description");
+        comicDescription.innerHTML = comicDescriptions[currentPageIndex];
+
         var pageNumberElement = document.getElementById("page-number");
         pageNumberElement.innerText = "Page " + (currentPageIndex + 1);
 
-        // Update button states
         var prevButton = document.getElementById("prevButton");
         var nextButton = document.getElementById("nextButton");
 
         prevButton.disabled = currentPageIndex === 0;
         nextButton.disabled = currentPageIndex === comicPages.length - 1;
 
-        // Hide/show buttons based on the page index
         prevButton.style.display = currentPageIndex === 0 ? "none" : "block";
         nextButton.style.display = currentPageIndex === comicPages.length - 1 ? "none" : "block";
     }
@@ -257,14 +316,13 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
-    // Update the 'ogImage' in the JavaScript code
     function updateOgImage() {
         var pgParam = getParameterByName('pg');
         if (pgParam !== null && pgParam >= 1 && pgParam <= comicPages.length) {
             currentPageIndex = pgParam - 1;
             var ogImage = document.getElementById("ogImage");
             ogImage.src = comicPages[currentPageIndex];
-            updateComic();  // Move this line here
+            updateComic();
         }
     }
 
