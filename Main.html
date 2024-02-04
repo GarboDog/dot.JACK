@@ -148,13 +148,14 @@
         }
 
         #comic-description a {
-            color: #0066cc; /* Link color */
-            text-decoration: none; /* Remove underline */
-            font-weight: bold; /* Optionally, make the link bold */
+            color: #aa516d;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         #comic-description a:hover {
-            text-decoration: underline; /* Underline on hover */
+            color: #e16d92;
+            text-decoration: underline;
         }
        
     </style>
@@ -191,7 +192,7 @@
 <!-- Dear Jack (or helper), you'll need to update the "Max" value to the number of comics you have -PJ // You got this! haha! -Sam-->
 <div id="jump-to-page">
     <label for="pageInput">Jump to Page:</label>
-    <input type="number" id="pageInput" min="1" max="12"> 
+    <input type="number" id="pageInput" min="1" max="13"> 
     <button id="jump-button" onclick="jumpToPage()">
         <img src="https://media.discordapp.net/attachments/1201180195655258202/1201248308623056956/check_mark.png" alt="Go">
     </button>
@@ -217,7 +218,8 @@
         "https://media.discordapp.net/attachments/1201180195655258202/1202686926533042266/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1203188373032804483/image.png",
         "https://media.discordapp.net/attachments/1201180195655258202/1203425804567183401/image.png",
-        "https://media.discordapp.net/attachments/1201180195655258202/1203527745213038612/image.png"
+        "https://media.discordapp.net/attachments/1201180195655258202/1203527745213038612/image.png",
+        "https://media.discordapp.net/attachments/1201180195655258202/1203717565029945394/image.png"
     ];
 
 // Dear Jack (or helper), you can add descriptions to your comics here in the "comicDescriptions" variable :> -PJ // Good job <3 -Lily
@@ -233,7 +235,8 @@
         "Over heard someone whispering about our book... I was playing Minecraft behind it :'>",
         "Our migraine got really bad, Kuro offered to take over so I can rest. Thank you Kuro <3",
         "I never saved any of my drawings. They're Temporary and that's ok. :>",
-        "Sam and I made bread today!! It's very yummy and we use it for sandwiches."
+        "Sam and I made bread today!! It's very yummy and we use it for sandwiches.",
+        "Buddy Holly was in the Bathroom while our friend, <a href='https://bsky.app/profile/teetheclown.bsky.social' target=_blank>Tee the Clown</a>, was there x> "
     ];
 
     var currentPageIndex = 0;
